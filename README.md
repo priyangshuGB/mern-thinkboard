@@ -142,17 +142,17 @@ http://localhost:5173
 
 ## 📸 Screenshots
 
-### Homepage
-![Homepage](screenshots/home.png)
+<p align="center">
+  <img src="screenshots/home.png" width="45%" />
+  <img src="screenshots/create.png" width="45%" />
+</p>
 
-### Create Note
-![Create Note](screenshots/create.png)
+<p align="center">
+  <img src="screenshots/edit.png" width="45%" />
+  <img src="screenshots/empty.png" width="45%" />
+</p>
 
-### Edit Note
-![Edit Note](screenshots/edit.png)
-
-### Empty Note
-![Empty Note](screenshot/empty.png)
+---
 
 ## 🤝 Contributing
 
