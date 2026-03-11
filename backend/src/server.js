@@ -3,6 +3,7 @@ import express from "express";
 import notesRoutes from "./routes/notesRoutes.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
 
 import { connectDB } from "./config/db.js";
 import { Ratelimit } from "@upstash/ratelimit";
@@ -14,13 +15,16 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+const __dirname = path.resolve();
 
 // middleware
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  }),
-);
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+    }),
+  );
+}
 app.use(express.json()); // middleware to parse json bodies
 app.use(rateLimiter);
 
@@ -30,6 +34,14 @@ app.use(rateLimiter);
 // })
 
 app.use("/api/notes", notesRoutes);
+
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
 
 connectDB().then(() => {
   app.listen(PORT, () => {
